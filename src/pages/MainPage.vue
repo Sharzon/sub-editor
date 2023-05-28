@@ -2,6 +2,7 @@
 import { reactive } from 'vue'
 import { readSubtitleFromInput } from '../utils'
 import SubEditor from '../components/SubEditor.vue'
+import FileInput from '../components/FileInput.vue'
 
 const subtitles = reactive({
   timestamps: [],
@@ -52,13 +53,48 @@ const addSubs = (type, newSubs) => {
 </script>
 
 <template>
-  <main>
-    <label for="original">Original subtitle file</label>
-    <input type="file" id="original" @change="addOriginal" />
-    <label for="translated">Translated subtitle file</label>
-    <input type="file" id="translated" @change="addTranslated" />
-    <SubEditor :subtitles="subtitles" />
-  </main>
+  <div class="main-page">
+    <div class="menu">
+      <FileInput
+        class="file-input"
+        label="Add original subtitle"
+        accept=".srt"
+        @addFile="addOriginal"
+        id="original-file"
+      />
+      <FileInput
+        label="Add translation subtitle"
+        accept=".srt"
+        @addFile="addTranslated"
+        id="translated-file"
+      />
+    </div>
+    <main class="content">
+      <h1>Subtitles editor</h1>
+      <SubEditor :subtitles="subtitles" />
+    </main>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main-page {
+  display: flex;
+  padding: 20px 0;
+}
+.menu {
+  display: flex;
+  width: 300px;
+  margin-right: 20px;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  height: 100%;
+}
+.file-input {
+  margin-bottom: 10px;
+}
+
+.content {
+  width: 100%;
+}
+</style>
