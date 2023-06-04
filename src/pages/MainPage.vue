@@ -50,6 +50,10 @@ const addSubs = (type, newSubs) => {
     }
   }
 }
+
+const updateTranslation = ({ index, text }) => {
+  subtitles.translated.splice(index, 1, text)
+}
 </script>
 
 <template>
@@ -71,7 +75,10 @@ const addSubs = (type, newSubs) => {
     </div>
     <main class="content">
       <h1>Subtitles editor</h1>
-      <SubEditor :subtitles="subtitles" />
+      <SubEditor 
+        :subtitles="subtitles"
+        @update:translation="updateTranslation"
+      />
     </main>
   </div>
 </template>
