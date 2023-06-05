@@ -1,8 +1,9 @@
 <script setup>
 import { reactive } from 'vue'
-import { readSubtitleFromInput } from '../utils'
+import { readSubtitleFromInput, translationToSrt } from '../utils'
 import SubEditor from '../components/SubEditor.vue'
 import FileInput from '../components/FileInput.vue'
+import Button from '../components/SEButton.vue'
 
 const subtitles = reactive({
   timestamps: [],
@@ -18,6 +19,19 @@ const addOriginal = async (event) => {
 const addTranslated = async (event) => {
   const newSubs = await readSubtitleFromInput(event)
   addSubs('translated', newSubs)
+}
+
+const saveTranslated = () => {
+  const srt = translationToSrt(subtitles.timestamps, subtitles.translated)
+  const blob = new Blob([srt], { type: 'text/plain' })
+  const url = URL.createObjectURL(blob)
+
+  const link = document.createElement('a')
+  link.download = 'translation.srt'
+  link.href = url
+  link.click()
+
+  URL.revokeObjectURL(url)
 }
 
 const addSubs = (type, newSubs) => {
@@ -52,6 +66,7 @@ const addSubs = (type, newSubs) => {
 }
 
 const updateTranslation = ({ index, text }) => {
+  text = text ? text.trim() : ''
   subtitles.translated.splice(index, 1, text)
 }
 </script>
@@ -67,18 +82,17 @@ const updateTranslation = ({ index, text }) => {
         id="original-file"
       />
       <FileInput
+        class="file-input"
         label="Add translation subtitle"
         accept=".srt"
         @addFile="addTranslated"
         id="translated-file"
       />
+      <Button class="save-button" text="Save translation" @click="saveTranslated" />
     </div>
     <main class="content">
       <h1>Subtitles editor</h1>
-      <SubEditor 
-        :subtitles="subtitles"
-        @update:translation="updateTranslation"
-      />
+      <SubEditor :subtitles="subtitles" @update:translation="updateTranslation" />
     </main>
   </div>
 </template>
@@ -97,7 +111,9 @@ const updateTranslation = ({ index, text }) => {
   justify-content: center;
   height: 100%;
 }
-.file-input {
+
+.file-input,
+.save-button {
   margin-bottom: 10px;
 }
 

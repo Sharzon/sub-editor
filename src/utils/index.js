@@ -18,3 +18,16 @@ export const readSubtitleFromInput = async (event) => {
   const subtitle = await readFileFromInput(event)
   return parser.fromSrt(subtitle)
 }
+
+export const translationToSrt = (timestamps, translated) => {
+  const parser = new SrtParser2()
+  const translation = timestamps.map((timestamp, index) => {
+    return {
+      id: timestamp.id ?? index + 1,
+      startTime: timestamp.startTime,
+      endTime: timestamp.endTime,
+      text: translated[index]
+    }
+  })
+  return parser.toSrt(translation)
+}

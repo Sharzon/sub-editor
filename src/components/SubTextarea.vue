@@ -1,12 +1,12 @@
 <script setup>
 import { defineProps, defineEmits, ref, nextTick } from 'vue'
-import GrowableTextarea from './GrowableTextarea.vue';
+import GrowableTextarea from './GrowableTextarea.vue'
 
 const props = defineProps({
   subtitleText: {
     required: true,
-    type: String,
-  },
+    type: String
+  }
 })
 const emit = defineEmits(['update:subtitleText'])
 
@@ -56,7 +56,7 @@ const onInput = (event) => {
   height: 100%;
   border: 1px solid #117b4d;
   border-radius: 5px;
-  resize: none; 
+  resize: none;
 
   font-family: inherit;
   font-size: inherit;

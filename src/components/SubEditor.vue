@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
-import SubTextarea from './SubTextarea.vue';
+import SubTextarea from './SubTextarea.vue'
 
 const props = defineProps({
   subtitles: {
@@ -9,7 +9,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:translation'])
-
 </script>
 
 <template>
@@ -32,7 +31,7 @@ const emit = defineEmits(['update:translation'])
           <SubTextarea
             class="sub-editor__transtation-textarea"
             :subtitleText="props.subtitles.translated[i - 1]"
-            @update:subtitleText="text => emit('update:translation', { index: i - 1, text })"
+            @update:subtitleText="(text) => emit('update:translation', { index: i - 1, text })"
           />
         </td>
       </tr>
@@ -72,7 +71,7 @@ const emit = defineEmits(['update:translation'])
   border-right: 1px solid #117b4d;
 }
 
-.sub-editor th:last-child, 
+.sub-editor th:last-child,
 .sub-editor td:last-child {
   border-right: none;
 }

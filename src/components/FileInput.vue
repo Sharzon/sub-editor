@@ -27,6 +27,7 @@ const emit = defineEmits(['addFile'])
   border: 1px solid #117b4d;
   border-radius: 5px;
   background-color: #93d0b6;
+  color: #333333;
   padding: 2px 5px;
   user-select: none;
   cursor: pointer;
