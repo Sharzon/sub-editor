@@ -15,7 +15,7 @@ const emit = defineEmits(['click'])
 
 <style scoped>
 .button {
-  border: 1px solid #117b4d;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   background-color: #93d0b6;
   padding: 2px 5px;

@@ -1,13 +1,12 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import SubTextarea from './SubTextarea.vue'
+import TimestampInput from './TimestampInput.vue'
 
 const props = defineProps({
   subtitles: {
     required: true
   }
 })
-
 const emit = defineEmits(['update:translation'])
 </script>
 
@@ -23,8 +22,10 @@ const emit = defineEmits(['update:translation'])
     <tbody>
       <tr v-for="i in props.subtitles.timestamps.length" :key="i - 1">
         <td>
-          {{ props.subtitles.timestamps[i - 1].startTime }} -->
-          {{ props.subtitles.timestamps[i - 1].endTime }}
+          <TimestampInput
+            :modelValue="props.subtitles.timestamps[i - 1]"
+            @update:modelValue="(timestamp) => emit('update:timestamp', { index: i - 1, timestamp })"
+          />
         </td>
         <td>{{ props.subtitles.original[i - 1] }}</td>
         <td class="sub-editor__translation">
@@ -46,7 +47,7 @@ const emit = defineEmits(['update:translation'])
   width: 100%;
   border-spacing: 0;
   border-collapse: separate;
-  border: 1px solid #117b4d;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
 }
 .sub-editor thead,
@@ -58,7 +59,6 @@ const emit = defineEmits(['update:translation'])
 .sub-editor th,
 .sub-editor td {
   padding: 5px;
-  /* border: 1px solid #117b4d; */
   border-right: none;
   border-bottom: none;
   text-align: left;
@@ -68,7 +68,7 @@ const emit = defineEmits(['update:translation'])
 .sub-editor th,
 .sub-editor td {
   display: block;
-  border-right: 1px solid #117b4d;
+  border-right: 1px solid var(--border-color);
 }
 
 .sub-editor th:last-child,
@@ -77,7 +77,7 @@ const emit = defineEmits(['update:translation'])
 }
 
 .sub-editor td {
-  border-top: 1px solid #117b4d;
+  border-top: 1px solid var(--border-color);
 }
 
 .sub-editor .sub-editor__translation {

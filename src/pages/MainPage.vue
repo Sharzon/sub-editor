@@ -69,6 +69,10 @@ const updateTranslation = ({ index, text }) => {
   text = text ? text.trim() : ''
   subtitles.translated.splice(index, 1, text)
 }
+
+const updateTimestamp = ({ index, timestamp }) => {
+  subtitles.timestamps.splice(index, 1, timestamp)
+}
 </script>
 
 <template>
@@ -92,7 +96,11 @@ const updateTranslation = ({ index, text }) => {
     </div>
     <main class="content">
       <h1>Subtitles editor</h1>
-      <SubEditor :subtitles="subtitles" @update:translation="updateTranslation" />
+      <SubEditor
+        :subtitles="subtitles"
+        @update:translation="updateTranslation"
+        @update:timestamp="updateTimestamp"
+      />
     </main>
   </div>
 </template>

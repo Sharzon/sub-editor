@@ -54,7 +54,7 @@ const onInput = (event) => {
 .sub-textarea__textarea {
   width: 100%;
   height: 100%;
-  border: 1px solid #117b4d;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   resize: none;
 

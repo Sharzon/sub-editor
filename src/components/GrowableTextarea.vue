@@ -55,7 +55,7 @@ defineExpose({
 
 .growable-textarea,
 .growable-textarea-wrapper::after {
-  border: 1px solid #117b4d;
+  border: 1px solid var(--border-color);
   padding: 0.5rem;
   font: inherit;
 
